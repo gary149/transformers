@@ -225,6 +225,7 @@ class ConfigTester(object):
         if not attribute_used:
             case_allowed = False
             for attribute in attributes:
+                # Need to review: if default is 1e-5, we can use it
                 if attribute == "layer_norm_eps" and self.config_class.__name__ in [
                     "BioGptConfig",
                     "CLIPTextConfig",
@@ -238,6 +239,8 @@ class ConfigTester(object):
                     "OwlViTVisionConfig",
                     "SegformerConfig",
                     "XCLIPTextConfig",
+                    "XCLIPVisionConfig",
+                    "OneFormerConfig",
                 ]:
                     case_allowed = True
                 # DPR has `self.bert` and the config has to be able to initialize a BERT model.
