@@ -249,6 +249,8 @@ class ConfigTester(object):
                     case_allowed = True
                 if attribute in ["attention_types"] and self.config_class.__name__ in ["GPTNeoConfig"]:
                     case_allowed = True
+                if attribute in ["feed_forward_proj"] and self.config_class.__name__ in ["T5Config", "LongT5Config", "SwitchTransformersConfig"]:
+                    case_allowed = True
                 if attribute in ["is_encoder_decoder"] and default_value is True:
                     case_allowed = True
                 if attribute in ["tie_word_embeddings"] and default_value is False:
