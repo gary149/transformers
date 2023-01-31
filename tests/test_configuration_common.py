@@ -17,6 +17,7 @@ import copy
 import inspect
 import json
 import os
+import re
 import shutil
 import sys
 import tempfile
@@ -208,10 +209,14 @@ class ConfigTester(object):
 
     def _check_attribute_being_used(self, attributes, default_value, modeling_sources):
 
+        import re
+
         attribute_used = False
         for attribute in attributes:
             for modeling_source in modeling_sources:
                 if f"config.{attribute}" in modeling_source or f'getattr(config, "{attribute}"' in modeling_source:
+                    attribute_used = True
+                elif re.search(rf'getattr\([ \t\v\n\r\f]*config, "{attribute}"', modeling_source) is not None:
                     attribute_used = True
                 elif attribute in ["summary_type", "summary_use_proj", "summary_activation", "summary_last_dropout", "summary_proj_to_labels", "summary_first_dropout"]:
                     if "SequenceSummary" in modeling_source:
