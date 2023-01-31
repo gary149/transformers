@@ -226,10 +226,16 @@ class ConfigTester(object):
             if attribute_used:
                 break
 
+        attributes_used_in_generation = [
+            "encoder_no_repeat_ngram_size"
+        ]
+
         case_allowed = True
         if not attribute_used:
             case_allowed = False
             for attribute in attributes:
+                if attribute in attributes_used_in_generation:
+                    case_allowed = True
                 # (These config classes have default values other than `1e-5` - we can't fix them without breaking)
                 if attribute == "layer_norm_eps" and self.config_class.__name__ in [
                     "BioGptConfig",
