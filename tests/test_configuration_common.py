@@ -263,6 +263,8 @@ class ConfigTester(object):
                     case_allowed = True
                 if attribute in ["tie_word_embeddings"] and default_value is False:
                     case_allowed = True
+                if attribute in ["use_cache"] and default_value is True:
+                    case_allowed = True
 
         return attribute_used or case_allowed
 
